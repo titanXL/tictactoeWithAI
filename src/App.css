@@ -9,6 +9,8 @@
 .board > span {
   width: 100%;
   text-align: center;
+  color: #ffffff;
+  font-size: 18px;
 }
 
 .square {
