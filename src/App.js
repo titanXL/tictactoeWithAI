@@ -6,27 +6,30 @@ const winningCombos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2
 const player = 'X'
 const AI = 'O'
 
+const defaultState = {
+  board: ['', '', '', '', '', '', '', '', ''],
+  winner: false,
+  win: false
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      board: ['', '', '', '', '', '', '', '', ''],
-      winner: false,
-      win: false
-    }
+    this.state = defaultState
   }
 
   render() {
     return (
       <div className="board">
         {!this.state.win ?
-          this.state.board.map((el, ndx) => <div className='square' key={ndx} index={ndx} onClick={() => this.handleClick(ndx)}>{el}</div>) :
+          this.state.board.map((el, ndx) => <div className='square' key={ndx} index={ndx} onClick={() => this.handleClick(ndx)}>{el}</div>):
 
-          <div className="board">{this.state.board.map((el, ndx) => <div className='square' key={ndx} index={ndx}>{el}</div>)}Game over! {this.state.winner}
-          </div>
+          this.state.board.map((el, ndx) => <div className='square' key={ndx} index={ndx}>{el}</div>)
+
         }
-        <div>
-          <button onClick={() => this.handleRestart()} style={{marginTop: '25px'}}>Restart</button>
+        {this.state.win ? <span> Game over! Winner: {this.state.winner}</span> : <span> Game ON</span>}
+        <div className='button'>
+          <button onClick={() => this.handleRestart()}>Restart</button>
         </div>
       </div>
     );
@@ -34,11 +37,7 @@ class App extends Component {
 
   handleRestart() {
     this.setState(() => {
-      return {
-        board: ['', '', '', '', '', '', '', '', ''],
-        winner: false,
-        win: false
-      }
+      return defaultState
     })
   }
 
